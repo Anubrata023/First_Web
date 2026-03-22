@@ -4,6 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>StudyVerse — Login</title>
+<link rel="icon" type="image/png" href="favicon.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,700;0,900;1,700&family=DM+Sans:wght@300;400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -454,24 +455,24 @@ body {
         </div>
       </div>
 
-      <!-- OTP section (hidden initially) -->
-      <div id="otpSection" style="display:none">
-        <div class="otp-hint">Enter the 6-digit OTP sent to <span id="otpTarget" style="color:var(--red)"></span></div>
-        <div class="otp-boxes">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,0)">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,1)">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,2)">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,3)">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,4)">
-          <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,5)">
-        </div>
-        <p style="font-size:0.73rem;color:rgba(245,245,245,0.3);text-align:center;margin-bottom:16px;">
-          Didn't get OTP? <a href="#" onclick="resendOtp()" style="color:rgba(240,84,84,0.7);text-decoration:none" id="resendLink">Resend in <span id="resendTimer">30</span>s</a>
-        </p>
-        <button class="submit-btn" onclick="verifyOtp()">Verify & Enter StudyVerse</button>
-      </div>
-
       <button class="send-otp" id="sendOtpBtn" onclick="sendOtp()">📨 Send OTP</button>
+    </div>
+
+    <!-- OTP section (hidden initially) -->
+    <div id="otpSection" style="display:none">
+      <div class="otp-hint">Enter the 6-digit OTP sent to <span id="otpTarget" style="color:var(--red)"></span></div>
+      <div class="otp-boxes">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,0)">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,1)">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,2)">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,3)">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,4)">
+        <input type="text" class="otp-input" maxlength="1" oninput="otpNext(this,5)">
+      </div>
+      <p style="font-size:0.73rem;color:rgba(245,245,245,0.3);text-align:center;margin-bottom:16px;">
+        Didn't get OTP? <a href="#" onclick="resendOtp()" style="color:rgba(240,84,84,0.7);text-decoration:none" id="resendLink">Resend in <span id="resendTimer">30</span>s</a>
+      </p>
+      <button class="submit-btn" onclick="verifyOtp()">Verify & Enter StudyVerse</button>
     </div>
 
     <!-- SUCCESS -->
@@ -544,9 +545,38 @@ function loginEmail() {
   if (!email || !email.includes('@gmail.com')) { toast('⚠️', 'Enter a valid Gmail address'); return; }
   if (!pass || pass.length < 6) { toast('🔒', 'Password must be at least 6 characters'); return; }
   const btn = event.currentTarget;
-  btn.innerHTML = '<span class="spinner"></span> Signing in...';
+  btn.innerHTML = '<span class="spinner"></span> Sending OTP...';
   btn.classList.add('btn-loading');
-  setTimeout(() => { showSuccess(); }, 1800);
+  
+  fetch('http://localhost:3000/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier: email })
+  }).then(r => r.json()).then(data => {
+      btn.classList.remove('btn-loading');
+      if (data.success) {
+        document.getElementById('otpTarget').textContent = email;
+        document.getElementById('otpSection').style.display = 'block';
+        document.getElementById('formEmail').style.display = 'none';
+        document.querySelector('.tabs').style.display = 'none';
+        
+        toast('📩', 'OTP generated!');
+        if (data.otp) {
+            setTimeout(() => alert('🔑 Your StudyVerse OTP is: ' + data.otp), 300);
+        }
+        
+        startResendTimer();
+        setTimeout(() => document.querySelectorAll('.otp-input')[0].focus(), 100);
+      } else {
+        btn.innerHTML = 'Sign In to StudyVerse';
+        toast('⚠️', data.message);
+      }
+  }).catch(err => {
+      btn.classList.remove('btn-loading');
+      btn.innerHTML = 'Sign In to StudyVerse';
+      console.error(err);
+      toast('⚠️', 'Network error - Make sure node server is running!');
+  });
 }
 
 // ── GOOGLE LOGIN ──
@@ -564,14 +594,37 @@ function sendOtp() {
   const btn = document.getElementById('sendOtpBtn');
   btn.disabled = true;
   btn.textContent = '⏳ Sending...';
-  setTimeout(() => {
-    document.getElementById('otpTarget').textContent = dial + ' ' + phone;
-    document.getElementById('otpSection').style.display = 'block';
-    document.getElementById('sendOtpBtn').style.display = 'none';
-    document.querySelectorAll('.otp-input')[0].focus();
-    toast('📩', 'OTP sent! Check your messages.');
-    startResendTimer();
-  }, 1200);
+  
+  const identifier = dial + ' ' + phone;
+  fetch('http://localhost:3000/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier })
+  }).then(r => r.json()).then(data => {
+      if (data.success) {
+        document.getElementById('otpTarget').textContent = identifier;
+        document.getElementById('otpSection').style.display = 'block';
+        document.getElementById('formPhone').style.display = 'none';
+        document.querySelector('.tabs').style.display = 'none';
+        
+        toast('📩', 'OTP generated!');
+        if (data.otp) {
+            setTimeout(() => alert('🔑 Your StudyVerse OTP is: ' + data.otp), 300);
+        }
+
+        startResendTimer();
+        setTimeout(() => document.querySelectorAll('.otp-input')[0].focus(), 100);
+      } else {
+        btn.disabled = false;
+        btn.textContent = '📨 Send OTP';
+        toast('⚠️', data.message);
+      }
+  }).catch(err => {
+      btn.disabled = false;
+      btn.textContent = '📨 Send OTP';
+      console.error(err);
+      toast('⚠️', 'Network error - Make sure node server is running!');
+  });
 }
 
 function startResendTimer() {
@@ -592,14 +645,26 @@ function startResendTimer() {
 
 function resendOtp() {
   event.preventDefault();
-  toast('📨', 'OTP resent!');
-  document.getElementById('resendLink').innerHTML = 'Resend in <span id="resendTimer">30</span>s';
-  startResendTimer();
+  const identifier = document.getElementById('otpTarget').textContent;
+  fetch('http://localhost:3000/api/auth/send-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier })
+  }).then(r => r.json()).then(data => {
+      if (data.success) {
+          toast('📨', 'OTP resent!');
+          if (data.otp) {
+              setTimeout(() => alert('🔑 Your Resent OTP is: ' + data.otp), 300);
+          }
+          document.getElementById('resendLink').innerHTML = 'Resend in <span id="resendTimer">30</span>s';
+          startResendTimer();
+      }
+  });
 }
 
 // ── OTP BOXES ──
 function otpNext(el, idx) {
-  el.value = el.value.replace(/\D/g, '');
+  el.value = el.value.replace(/\\D/g, '');
   const boxes = document.querySelectorAll('.otp-input');
   if (el.value && idx < 5) boxes[idx + 1].focus();
   if (idx === 5 && el.value) {
@@ -616,7 +681,30 @@ function verifyOtp() {
   const btn = event.currentTarget;
   btn.innerHTML = '<span class="spinner"></span> Verifying...';
   btn.classList.add('btn-loading');
-  setTimeout(() => showSuccess(), 1600);
+  
+  const identifier = document.getElementById('otpTarget').textContent;
+  
+  fetch('http://localhost:3000/api/auth/verify-otp', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ identifier, otp })
+  }).then(r => r.json()).then(data => {
+      btn.classList.remove('btn-loading');
+      if (data.success) {
+          showSuccess();
+          setTimeout(() => { window.location.href = data.redirectUrl; }, 2000);
+      } else {
+          btn.innerHTML = 'Verify & Enter StudyVerse';
+          toast('⚠️', 'Invalid OTP. Please try again.');
+          boxes.forEach(b => b.value = '');
+          boxes[0].focus();
+      }
+  }).catch(err => {
+      btn.classList.remove('btn-loading');
+      btn.innerHTML = 'Verify & Enter StudyVerse';
+      console.error(err);
+      toast('⚠️', 'Network error - Make sure node server is running!');
+  });
 }
 
 // ── SUCCESS ──
