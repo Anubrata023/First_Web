@@ -1,0 +1,19 @@
+{
+  "routes": {
+    "Dashboard": "/dashboard",
+    "Resources": "/resources",
+    "All Subjects": "/resources",
+    "Doubts & Q&A": "/doubts",
+    "My Doubts": "/doubts",
+    "Study with Friends": "/study-with-friends",
+    "Physics": "/physics"
+  },
+  "file_to_route": {
+    "studyverse (1).html": "/dashboard",
+    "studyverse-resources (3).html": "/resources",
+    "community-doubts (2).html": "/doubts",
+    "study-with-friends.html": "/study-with-friends",
+    "subject-study-page (1).html": "/physics",
+    "sakura-studyverse (6).html": "/sakura"
+  }
+}

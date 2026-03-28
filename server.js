@@ -72,6 +72,25 @@ app.get('/dashboard', (req, res) => {
     res.sendFile(path.join(__dirname, 'studyverse (1).html'));
 });
 
+app.get('/resources', (req, res) => {
+    res.sendFile(path.join(__dirname, 'studyverse-resources (3).html'));
+});
+
+app.get('/doubts', (req, res) => {
+    res.sendFile(path.join(__dirname, 'community-doubts (2).html'));
+});
+
+app.get('/study-with-friends', (req, res) => {
+    res.sendFile(path.join(__dirname, 'study-with-friends.html'));
+});
+
+app.get('/physics', (req, res) => {
+    res.sendFile(path.join(__dirname, 'subject-study-page (1).html'));
+});
+
+app.get('/sakura', (req, res) => {
+    res.sendFile(path.join(__dirname, 'sakura-studyverse (6).html'));
+});
 // Material Upload API Endpoint
 app.post('/api/material/upload', upload.single('material'), (req, res) => {
     try {

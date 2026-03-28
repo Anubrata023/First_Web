@@ -1,0 +1,44 @@
+1177: <div class="sb-icon-btn" id="sb-friends" onclick="window.location.href='study-with-friends.html'" title="Study with friends">
+1187: <div class="sb-icon-btn" id="sb-notes" onclick="toast('📝','Opening notes...')" title="My Notes">📝</div>
+1203: <div class="sbp-item active" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">🏠</span>Dashboard</div>
+1205: <div class="sbp-item" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">📊</span>Dashboard Overview</div>
+1223: <div class="sbp-sub-item" onclick="window.location.href='subject-study-page (1).html'"><span class="sbp-sub-dot"></span>⚛️ Physics</div>
+1224: <div class="sbp-sub-item" onclick="closePopup();toast('📐','Math resources...')"><span class="sbp-sub-dot"></span>📐 Mathematics</div>
+1225: <div class="sbp-sub-item" onclick="closePopup();toast('🧪','Chemistry resources...')"><span class="sbp-sub-dot"></span>🧪 Chemistry</div>
+1226: <div class="sbp-sub-item" onclick="closePopup();toast('💻','CS resources...')"><span class="sbp-sub-dot"></span>💻 Computer Science</div>
+1227: <div class="sbp-sub-item" onclick="closePopup();toast('🧬','Biology resources...')"><span class="sbp-sub-dot"></span>🧬 Biology</div>
+1228: <div class="sbp-sub-item" onclick="closePopup();toast('📖','English resources...')"><span class="sbp-sub-dot"></span>📖 English</div>
+1232: <div class="sbp-item" onclick="closePopup();toast('📄','Opening PYQ bank...')"><span class="sbp-item-icon">📄</span>PYQ Bank 2015–2024</div>
+1233: <div class="sbp-item" onclick="closePopup();toast('🗺️','Opening mind maps...')"><span class="sbp-item-icon">🗺️</span>Mind Maps</div>
+1234: <div class="sbp-item" onclick="closePopup();toast('🎥','Opening video lectures...')"><span class="sbp-item-icon">🎥</span>Video Lectures</div>
+1243: <div class="sbp-item" onclick="window.location.href='community-doubts (2).html'"><span class="sbp-item-icon">📋</span>My Doubts<span class="sbp-item-badge">3</span></div>
+1244: <div class="sbp-item" onclick="closePopup();toast('🔥','Loading trending doubts...')"><span class="sbp-item-icon">🔥</span>Trending Q&A</div>
+1245: <div class="sbp-item" onclick="closePopup();toast('✅','Loading solved doubts...')"><span class="sbp-item-icon">✅</span>Solved</div>
+1275: <div class="sbp-item" onclick="closePopup();toast('🃏','Opening flashcards...')"><span class="sbp-item-icon">🃏</span>Flashcards</div>
+1276: <div class="sbp-item" onclick="closePopup();toast('🎵','Starting Lo-Fi...')"><span class="sbp-item-icon">🎵</span>Lo-Fi Music</div>
+1277: <div class="sbp-item" onclick="closePopup();toast('📝','Opening quick notes...')"><span class="sbp-item-icon">📝</span>Quick Notes</div>
+1278: <div class="sbp-item" onclick="closePopup();toast('🧮','Opening formula sheet...')"><span class="sbp-item-icon">🧮</span>Formula Sheet</div>
+1279: <div class="sbp-item" onclick="closePopup();toast('📊','Opening analytics...')"><span class="sbp-item-icon">📊</span>Analytics</div>
+1293: <div class="sbp-item" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">📊</span>Dashboard Panel</div>
+1331: <button class="btn btn-outline" onclick="toast('❓','Opening Doubts panel...')">❓ Post a Doubt</button>
+1464: <div class="doubt" onclick="toast('📚','Opening thread...')">
+1470: <div class="doubt" onclick="toast('📐','Opening thread...')">
+1476: <div class="doubt" onclick="toast('🧪','Opening thread...')">
+1553: <div class="well-card" onclick="toast('🧘','Opening guided meditation...')"><div class="well-em">🧘</div><div class="well-t">Meditate</div><div class="well-d">5-min reset. Like a save point.</div></div>
+1554: <div class="well-card" onclick="toast('🌬️','Starting breathing...')"><div class="well-em">🌬️</div><div class="well-t">Breathe</div><div class="well-d">Box breathing. Calm now.</div></div>
+1555: <div class="well-card" onclick="toast('💪','Desk exercises time!')"><div class="well-em">💪</div><div class="well-t">Move</div><div class="well-d">Quick desk stretch.</div></div>
+1556: <div class="well-card" onclick="toast('✍️','Opening journal...')"><div class="well-em">✍️</div><div class="well-t">Journal</div><div class="well-d">Free your mind. Write it out.</div></div>
+1566: <span class="sec-link" onclick="toast('📚','Loading full resource library...')">Browse All →</span>
+1569: <div class="res-card" style="--rc:var(--red)" onclick="toast('⚛️','Opening Physics notes...')">
+1575: <div class="res-card" style="--rc:#93c5fd" onclick="toast('📐','Opening Calculus notes...')">
+1581: <div class="res-card" style="--rc:#86efac" onclick="toast('🧪','Opening Organic Chem...')">
+1587: <div class="res-card" style="--rc:#fde047" onclick="toast('💻','Opening DSA guide...')">
+1593: <div class="res-card" style="--rc:#fca5a5" onclick="toast('🧬','Opening Bio mind maps...')">
+1599: <div class="res-card" style="--rc:rgba(245,245,245,0.5)" onclick="toast('📖','Opening PYQ bank...')">
+1731: <div style="flex:1;background:rgba(48,71,94,0.15);border-radius:12px;padding:14px;text-align:center;cursor:pointer;" onclick="closeSlidePanel();toast('🧘','Opening meditation...')">
+1736: <div style="flex:1;background:rgba(48,71,94,0.15);border-radius:12px;padding:14px;text-align:center;cursor:pointer;" onclick="closeSlidePanel();toast('🌬️','Starting breathing...')">
+1760: <button onclick="closeSlidePanel();toast('🃏','Opening flashcards...')" style="width:100%;padding:11px 16px;border-radius:10px;background:rgba(48,71,94,0.3);border:1px solid rgba(48,71,94,0.4);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;text-align:left;">🃏 Quick Flashcards</button>
+1761: <button onclick="closeSlidePanel();toast('📝','Opening notes...')" style="width:100%;padding:11px 16px;border-radius:10px;background:rgba(48,71,94,0.3);border:1px solid rgba(48,71,94,0.4);color:var(--cream);font-family:'DM Sans',sans-serif;font-weight:600;font-size:0.85rem;cursor:pointer;text-align:left;">📝 Quick Notes</button>
+1775: <div class="fab-row" onclick="toast('🃏','Opening flashcards...')"><div class="fab-lbl">🃏 Flashcards</div><div class="fab-icon">🃏</div></div>
+1776: <div class="fab-row" onclick="toast('🎵','Starting Lo-Fi playlist...')"><div class="fab-lbl">🎵 Lo-Fi Music</div><div class="fab-icon">🎵</div></div>
+1777: <div class="fab-row" onclick="toast('📝','Opening quick notes...')"><div class="fab-lbl">📝 Quick Notes</div><div class="fab-icon">📝</div></div>

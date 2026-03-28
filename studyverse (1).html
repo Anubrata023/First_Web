@@ -1170,9 +1170,12 @@ nav {
   <div class="sb-divider"></div>
 
   <!-- Study group -->
-  <div class="sb-icon-btn" id="sb-resources" onclick="window.location.href=\'studyverse-resources (3).html\'" title="Study">📚</div>
-  <div class="sb-icon-btn" id="sb-doubts" onclick="openPopup('doubts',this)" title="Doubts & Q&A">
+  <div class="sb-icon-btn" id="sb-resources" onclick="window.location.href='/resources'" title="Study">📚</div>
+  <div class="sb-icon-btn" id="sb-doubts" onclick="window.location.href='/doubts'" title="Doubts & Q&A">
     ❓<span class="sb-count">3</span>
+  </div>
+  <div class="sb-icon-btn" id="sb-friends" onclick="window.location.href='/study-with-friends'" title="Study with friends">
+    👥
   </div>
   <div class="sb-icon-btn" id="sb-pomodoro" onclick="openPopup('pomodoro',this)" title="Pomodoro">⏱️</div>
   <div class="sb-icon-btn" id="sb-flash" onclick="openPopup('tools',this)" title="Study Tools">🃏</div>
@@ -1197,9 +1200,9 @@ nav {
     <div class="sbp-title">🏠 Main</div>
     <button class="sbp-close" onclick="closePopup()">✕</button>
   </div>
-  <div class="sbp-item active" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">🏠</span>Dashboard</div>
+  <div class="sbp-item active" onclick="window.location.href='/dashboard'"><span class="sbp-item-icon">🏠</span>Dashboard</div>
   <div class="sbp-item" onclick="closePopup();nav(this)"><span class="sbp-item-icon">📅</span>Schedule</div>
-  <div class="sbp-item" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">📊</span>Dashboard Overview</div>
+  <div class="sbp-item" onclick="window.location.href='/dashboard'"><span class="sbp-item-icon">📊</span>Dashboard Overview</div>
   <div class="sbp-divider"></div>
   <div class="sbp-item" onclick="closePopup();startFocusSession()"><span class="sbp-item-icon">🎯</span>Focus Mode</div>
   <div class="sbp-item" onclick="closePopup();openModal()"><span class="sbp-item-icon">⏱️</span>Pomodoro Timer</div>
@@ -1217,7 +1220,7 @@ nav {
     <span class="sbp-sub-arrow" id="resMenuArrow">▾</span>
   </div>
   <div class="sbp-sub" id="resMenuChildren">
-    <div class="sbp-sub-item" onclick="window.location.href='subject-study-page (1).html'"><span class="sbp-sub-dot"></span>⚛️ Physics</div>
+    <div class="sbp-sub-item" onclick="window.location.href='/physics'"><span class="sbp-sub-dot"></span>⚛️ Physics</div>
     <div class="sbp-sub-item" onclick="closePopup();toast('📐','Math resources...')"><span class="sbp-sub-dot"></span>📐 Mathematics</div>
     <div class="sbp-sub-item" onclick="closePopup();toast('🧪','Chemistry resources...')"><span class="sbp-sub-dot"></span>🧪 Chemistry</div>
     <div class="sbp-sub-item" onclick="closePopup();toast('💻','CS resources...')"><span class="sbp-sub-dot"></span>💻 Computer Science</div>
@@ -1237,7 +1240,7 @@ nav {
     <div class="sbp-title">❓ Doubts & Q&A</div>
     <button class="sbp-close" onclick="closePopup()">✕</button>
   </div>
-  <div class="sbp-item" onclick="window.location.href='community-doubts (2).html'"><span class="sbp-item-icon">📋</span>My Doubts<span class="sbp-item-badge">3</span></div>
+  <div class="sbp-item" onclick="window.location.href='/doubts'"><span class="sbp-item-icon">📋</span>My Doubts<span class="sbp-item-badge">3</span></div>
   <div class="sbp-item" onclick="closePopup();toast('🔥','Loading trending doubts...')"><span class="sbp-item-icon">🔥</span>Trending Q&A</div>
   <div class="sbp-item" onclick="closePopup();toast('✅','Loading solved doubts...')"><span class="sbp-item-icon">✅</span>Solved</div>
   <div class="sbp-divider"></div>
@@ -1287,7 +1290,7 @@ nav {
   <div class="sbp-item" onclick="closePopup();nav(this)"><span class="sbp-item-icon">🏆</span>Achievements</div>
   <div class="sbp-item" onclick="closePopup();nav(this)"><span class="sbp-item-icon">📅</span>Schedule</div>
   <div class="sbp-divider"></div>
-  <div class="sbp-item" onclick="window.location.href='studyverse (1).html'"><span class="sbp-item-icon">📊</span>Dashboard Panel</div>
+  <div class="sbp-item" onclick="window.location.href='/dashboard'"><span class="sbp-item-icon">📊</span>Dashboard Panel</div>
 </div>
 
 <!-- Mood popup -->
@@ -1325,6 +1328,8 @@ nav {
       <p>Your exam is <strong style="color:var(--red)">47 days away</strong>. The student who studies when others sleep writes history. Begin now — the track is right in front of you. 🚂</p>
       <div class="hero-btns">
         <button class="btn btn-fill" onclick="openModal()">⏱️ Start Focus Session</button>
+        <button class="btn btn-outline" onclick="window.location.href='/physics'">⚛️ Physics Room</button>
+        <button class="btn btn-outline" onclick="window.location.href='/sakura'">🌸 Mental Health</button>
         <button class="btn btn-outline" onclick="toast('❓','Opening Doubts panel...')">❓ Post a Doubt</button>
       </div>
       <div class="streak-row">

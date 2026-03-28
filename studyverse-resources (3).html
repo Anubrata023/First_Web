@@ -622,7 +622,7 @@ nav {
     <!-- MAIN -->
     <div class="sb-section">
       <div class="sb-label">Main</div>
-      <div class="sb-item" data-tip="Dashboard" onclick="window.location.href='studyverse (1).html'">
+      <div class="sb-item" data-tip="Dashboard" onclick="window.location.href='/dashboard'">
         <span class="sb-icon">🏠</span><span class="sb-text">Dashboard</span>
       </div>
       <div class="sb-item active" data-tip="Resources">
@@ -645,7 +645,7 @@ nav {
     <!-- SUBJECTS -->
     <div class="sb-section">
       <div class="sb-label">Subjects</div>
-      <div class="sb-item" data-tip="Physics" onclick="window.location.href='subject-study-page (1).html'">
+      <div class="sb-item" data-tip="Physics" onclick="window.location.href='/physics'">
         <span class="sb-icon">⚛️</span><span class="sb-text">Physics</span>
       </div>
       <div class="sb-item" data-tip="Chemistry" onclick="selectSubject('Chemistry')">
@@ -673,7 +673,7 @@ nav {
     <!-- LIBRARY -->
     <div class="sb-section">
       <div class="sb-label">Library</div>
-      <div class="sb-item" data-tip="Saved" onclick="window.location.href='studyverse-resources (3).html'">
+      <div class="sb-item" data-tip="Saved" onclick="window.location.href='/resources'">
         <span class="sb-icon">🔖</span><span class="sb-text">Saved</span>
       </div>
       <div class="sb-item" data-tip="Downloads" onclick="toast('📥','Downloads')">
@@ -904,6 +904,15 @@ nav {
         <span class="topic-pill" onclick="toast('📘','Polity')">🏛️ Indian Polity</span>
         <span class="topic-pill" onclick="toast('📘','Current Affairs')">📰 Current Affairs</span>
         <span class="topic-pill" onclick="toast('📘','Quantitative Aptitude')">🧮 Quant Aptitude</span>
+      </div>
+
+      <!-- My Storage Section -->
+      <div class="sec-head" style="align-items: center; display: flex; justify-content: space-between; margin-top: 30px;">
+        <div class="sec-title">My <span>Storage</span></div>
+        <button class="btn btn-fill" onclick="openUploadModal()" style="padding: 6px 14px; font-size: 0.85rem;">☁️ Upload to Storage</button>
+      </div>
+      <div class="res-grid" id="myStorageGrid" style="margin-bottom: 40px; display: none;">
+        <!-- Uploaded resources will appear here -->
       </div>
 
       <!-- Resource Grid -->
@@ -1331,11 +1340,37 @@ async function submitUpload() {
   </div>
   
   <div style="display:flex; height:calc(100% - 60px);">
-    <!-- Left side: Document Viewer placeholder -->
-    <div style="flex:1; border-right:1px solid rgba(48,71,94,0.3); background:url('data:image/svg+xml,%3Csvg viewBox=\'0 0 200 200\' xmlns=\'http://www.w3.org/2000/svg\'%3E%3Cfilter id=\'n\'%3E%3CfeTurbulence type=\'fractalNoise\' baseFrequency=\'0.9\' numOctaves=\'4\' stitchTiles=\'stitch\'/%3E%3C/filter%3E%3Crect width=\'100%25\' height=\'100%25\' filter=\'url(%23n)\' opacity=\'0.035\'/%3E%3C/svg%3E'), #1e1e2e; display:flex; align-items:center; justify-content:center; flex-direction:column; padding:40px; position:relative;">
-      <div style="font-size:4.5rem; margin-bottom:20px; animation:bounce 2s infinite ease-in-out;">📄</div>
-      <h3 style="color:var(--cream); font-family:'Playfair Display',serif; font-size:1.8rem; margin-bottom:15px; text-shadow:0 2px 10px rgba(0,0,0,0.5);">Document Analyzer Active</h3>
-      <p style="color:rgba(245,245,245,0.6); text-align:center; font-size:1rem; max-width:60%; line-height:1.6;">Your material is loaded. You can interact with the AI assistant on the right to summarize, generate flashcards, or answer specific questions about this resource.</p>
+    <!-- Left side: Adobe PDF Viewer Simulator -->
+    <div style="flex:1; border-right:1px solid rgba(48,71,94,0.3); background:#2b2b2b; display:flex; flex-direction:column; position:relative;">
+      <!-- PDF Toolbar -->
+      <div style="display:flex; justify-content:space-between; padding:10px 20px; background:#1e1e1e; border-bottom:1px solid #333;">
+        <div style="display:flex; gap:15px; color:#ccc; font-size:1.1rem; align-items:center;">
+           <span style="cursor:pointer;" title="Sidebar">☰</span>
+           <span style="font-size:0.8rem; background:#333; padding:2px 8px; border-radius:4px; font-family: sans-serif;">1 / 24</span>
+           <span style="cursor:pointer;" title="Zoom Out">➖</span>
+           <span style="font-size:0.8rem; font-family: sans-serif;">100%</span>
+           <span style="cursor:pointer;" title="Zoom In">➕</span>
+        </div>
+        <div style="display:flex; gap:12px; color:#ccc; font-size:1.1rem; align-items:center;">
+           <button style="background:var(--steel); border:none; color:white; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:bold; font-family: 'DM Sans', sans-serif;" onclick="openAudioSummary()">🎙️ Audio Summary</button>
+           <button style="background:var(--red); border:none; color:white; padding:5px 12px; border-radius:6px; cursor:pointer; font-size:0.8rem; font-weight:bold; font-family: 'DM Sans', sans-serif;" onclick="openMindMap()">🧠 AI Mind Map</button>
+           <span style="cursor:pointer; margin-left: 10px;" title="Print">🖨️</span>
+           <span style="cursor:pointer;" title="Download">⬇️</span>
+        </div>
+      </div>
+      <!-- PDF Content Area -->
+      <div style="flex:1; overflow-y:auto; padding:30px; display:flex; justify-content:center; background:#323232;">
+        <div style="background:#fff; width:100%; max-width:800px; min-height:1000px; padding:50px 60px; color:#333; font-family:'Times New Roman', serif; position:relative; box-shadow:0 10px 30px rgba(0,0,0,0.5);">
+           <h1 style="text-align:center; font-size:2.4rem; margin-bottom:20px; border-bottom:2px solid #ccc; padding-bottom:15px; font-weight: bold; color: #111;" id="pdfTitleDoc">Document Title</h1>
+           <p style="font-size:1.15rem; line-height:1.8; text-align:justify; margin-bottom: 20px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+           <p style="font-size:1.15rem; line-height:1.8; text-align:justify; margin-bottom: 20px;">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt.</p>
+           
+           <div style="margin-top:35px; padding:22px; background:#fcfcfc; border-left:4px solid var(--red); box-shadow: 0 2px 8px rgba(0,0,0,0.05);">
+             <strong style="color: #111; font-family:'DM Sans', sans-serif;">Key Concept Highlight:</strong><br><br>
+             Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.
+           </div>
+        </div>
+      </div>
     </div>
     
     <!-- Right side: Chat Interface -->
@@ -1368,8 +1403,9 @@ async function submitUpload() {
 <script>
 
 function renderNewResource(res) {
-  const grid = document.getElementById('resGrid');
+  const grid = document.getElementById('myStorageGrid');
   if(!grid) return;
+  grid.style.display = 'grid';
   
   const div = document.createElement('div');
   div.className = `res-card`;
@@ -1407,7 +1443,10 @@ window.addEventListener('DOMContentLoaded', () => {
 
 function openNotebookLm(title) {
   const overlay = document.getElementById('notebookLmOverlay');
-  document.getElementById('nlmResourceTitle').textContent = title || 'Uploaded Material';
+  const t = title || 'Uploaded Material';
+  document.getElementById('nlmResourceTitle').textContent = t;
+  const pdfTitleDoc = document.getElementById('pdfTitleDoc');
+  if(pdfTitleDoc) pdfTitleDoc.textContent = t;
   
   // Add animation class if desired
   overlay.style.display = 'block';
@@ -1455,9 +1494,110 @@ function sendNlmMsg() {
     }, 50);
   }, 800);
 }
+
+function openAudioSummary() {
+  const overlay = document.getElementById('audioSummaryOverlay');
+  overlay.style.display = 'block';
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.opacity = '1', 50);
+  overlay.style.transition = 'opacity 0.3s ease-in-out';
+  toast('🎙️', 'Generating Audio Podcast from material...');
+}
+
+function closeAudioSummary() {
+  const overlay = document.getElementById('audioSummaryOverlay');
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.display = 'none', 300);
+}
+
+function toggleAudioPlay(btn) {
+  if (btn.textContent === '⏸️') {
+    btn.textContent = '▶️';
+    document.querySelectorAll('#audioWaves .wave').forEach(w => w.style.animationPlayState = 'paused');
+  } else {
+    btn.textContent = '⏸️';
+    document.querySelectorAll('#audioWaves .wave').forEach(w => w.style.animationPlayState = 'running');
+  }
+}
+
+function openMindMap() {
+  const overlay = document.getElementById('mindMapOverlay');
+  overlay.style.display = 'block';
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.opacity = '1', 50);
+  overlay.style.transition = 'opacity 0.3s ease-in-out';
+  toast('🧠', 'AI compiling visual mind map...');
+}
+
+function closeMindMap() {
+  const overlay = document.getElementById('mindMapOverlay');
+  overlay.style.opacity = '0';
+  setTimeout(() => overlay.style.display = 'none', 300);
+}
 </script>
 
+<style>
+@keyframes pulse {
+  0% { height: 10px; opacity:0.5; }
+  100% { height: 60px; opacity:1; }
+}
+</style>
 
+<!-- Audio Summary Overlay -->
+<div id="audioSummaryOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:10001; backdrop-filter:blur(5px);">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#2b2b2b; width:450px; border-radius:20px; padding:30px; box-shadow:0 15px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.1); text-align:center;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h3 style="margin:0; color:var(--cream); font-family:'DM Sans', sans-serif;"><span style="margin-right:10px;">🎙️</span>Document Podcast</h3>
+      <span style="cursor:pointer; color:#999; font-size:1.2rem;" onclick="closeAudioSummary()">✕</span>
+    </div>
+    
+    <div style="background:#1e1e1e; border-radius:15px; padding:30px 20px; margin-bottom:25px; position:relative; overflow:hidden;">
+      <div style="display:flex; justify-content:center; align-items:center; gap:8px; height:60px;" id="audioWaves">
+        <div class="wave" style="width:8px; height:20px; background:var(--steel); border-radius:4px; animation: pulse 1s infinite ease-in-out alternate;"></div>
+        <div class="wave" style="width:8px; height:40px; background:var(--steel); border-radius:4px; animation: pulse 1s infinite ease-in-out alternate 0.2s;"></div>
+        <div class="wave" style="width:8px; height:60px; background:var(--steel); border-radius:4px; animation: pulse 1s infinite ease-in-out alternate 0.4s;"></div>
+        <div class="wave" style="width:8px; height:30px; background:var(--steel); border-radius:4px; animation: pulse 1s infinite ease-in-out alternate 0.1s;"></div>
+        <div class="wave" style="width:8px; height:50px; background:var(--steel); border-radius:4px; animation: pulse 1s infinite ease-in-out alternate 0.3s;"></div>
+      </div>
+      <div style="margin-top:20px; color:#aaa; font-size:0.9rem;">Playing Summary...</div>
+    </div>
+    
+    <div style="display:flex; justify-content:center; gap:20px; align-items:center;">
+      <button style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;" onclick="toast('⏮️', 'Rewind 10s')">⏮️</button>
+      <button style="background:var(--red); border:none; color:white; font-size:1.5rem; height:60px; width:60px; border-radius:50%; cursor:pointer; display:flex; align-items:center; justify-content:center; box-shadow:0 4px 15px rgba(240,84,84,0.4);" onclick="toggleAudioPlay(this)">⏸️</button>
+      <button style="background:none; border:none; color:white; font-size:1.5rem; cursor:pointer;" onclick="toast('⏭️', 'Forward 10s')">⏭️</button>
+    </div>
+  </div>
+</div>
+
+<!-- AI Mind Map Overlay -->
+<div id="mindMapOverlay" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.85); z-index:10001; backdrop-filter:blur(5px);">
+  <div style="position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); background:#2b2b2b; width:80%; max-width:900px; height:80%; border-radius:20px; padding:30px; box-shadow:0 15px 40px rgba(0,0,0,0.6); border:1px solid rgba(255,255,255,0.1); display:flex; flex-direction:column;">
+    <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px;">
+      <h3 style="margin:0; color:var(--cream); font-family:'DM Sans', sans-serif;"><span style="margin-right:10px;">🧠</span>AI Mind Map</h3>
+      <div>
+        <button style="background:var(--steel); border:none; color:white; padding:8px 15px; border-radius:6px; cursor:pointer; font-size:0.9rem; font-weight:bold; margin-right:15px;" onclick="toast('💾','Downloading Mind Map...')">Download Image</button>
+        <span style="cursor:pointer; color:#999; font-size:1.4rem;" onclick="closeMindMap()">✕</span>
+      </div>
+    </div>
+    
+    <div style="flex:1; background:#1e1e1e; border-radius:15px; position:relative; overflow:hidden; display:flex; justify-content:center; align-items:center;">
+       <div style="position:absolute; width:100%; height:100%;">
+         <svg width="100%" height="100%" style="position:absolute; top:0; left:0; pointer-events:none;">
+            <line x1="50%" y1="50%" x2="25%" y2="25%" stroke="rgba(240,84,84,0.5)" stroke-width="3" stroke-dasharray="5,5" />
+            <line x1="50%" y1="50%" x2="75%" y2="25%" stroke="rgba(48,71,94,0.5)" stroke-width="3" />
+            <line x1="50%" y1="50%" x2="25%" y2="75%" stroke="rgba(48,71,94,0.5)" stroke-width="3" />
+            <line x1="50%" y1="50%" x2="75%" y2="75%" stroke="rgba(240,84,84,0.5)" stroke-width="3" stroke-dasharray="5,5" />
+         </svg>
+       </div>
+       <div style="position:absolute; background:var(--red); padding:15px 25px; border-radius:30px; color:white; font-weight:bold; font-size:1.2rem; box-shadow:0 4px 15px rgba(240,84,84,0.4); z-index:2;">Main Document Concept</div>
+       <div style="position:absolute; top:20%; left:20%; background:var(--steel); padding:10px 20px; border-radius:20px; color:white; font-weight:bold; font-size:0.9rem; z-index:2;">Core Argument 1</div>
+       <div style="position:absolute; top:20%; left:70%; background:var(--steel); padding:10px 20px; border-radius:20px; color:white; font-weight:bold; font-size:0.9rem; z-index:2;">Core Argument 2</div>
+       <div style="position:absolute; top:70%; left:20%; background:#444; padding:10px 20px; border-radius:20px; color:white; font-weight:bold; font-size:0.9rem; border:2px solid var(--steel); z-index:2;">Supporting Evidence</div>
+       <div style="position:absolute; top:70%; left:70%; background:#444; padding:10px 20px; border-radius:20px; color:white; font-weight:bold; font-size:0.9rem; border:2px solid var(--red); z-index:2;">Conclusion Idea</div>
+    </div>
+  </div>
+</div>
 
 </body>
 </html>
